@@ -1,4 +1,4 @@
-require 'pry'
+require 'couchdbtools/config'
 
 module Couchdbtools
   def self.setup
