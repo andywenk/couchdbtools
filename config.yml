@@ -1,3 +1,10 @@
+# -*- encoding : utf-8 -*-
+
+app:
+  logfile: 'couchdbtools.log'
+
 db:
   name: 'hannebambel'
   port: '5984'
+  protocol: 'http'
+
