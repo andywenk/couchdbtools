@@ -1,16 +1,17 @@
 # coding: utf-8
-lib = File.expand_path('../lib', __FILE__)
-$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+$:.push File.expand_path("../lib", __FILE__)
 require 'couchdbtools/version'
+require 'couchdbtools/config'
 
 Gem::Specification.new do |spec|
   spec.name          = "couchdbtools"
   spec.version       = Couchdbtools::VERSION
+  spec.platform      = Gem::Platform::RUBY
   spec.authors       = ["Andy Wenk"]
   spec.email         = ["andy@nms.de"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
-  spec.homepage      = ""
+  spec.description   = %q{CouchDB Tools will make your life happy}
+  spec.summary       = %q{CouchDB Tools}
+  spec.homepage      = Couchdbtools::HOMEPAGE
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
@@ -18,6 +19,12 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
+  spec.add_dependency "rake"
+  spec.add_dependency "rest-client", "~> 1.6"
+  spec.add_dependency "multi_json",  "~> 1.3"
+  
   spec.add_development_dependency "bundler", "~> 1.3"
   spec.add_development_dependency "rake"
+  spec.add_development_dependency "rspec"
+  spec.add_development_dependency "pry"
 end

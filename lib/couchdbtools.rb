@@ -1,5 +1,8 @@
-require "couchdbtools/version"
+require 'pry'
 
 module Couchdbtools
-  # Your code goes here...
+  def self.setup
+    config = Couchdbtools::Config.load
+    puts config.inspect
+  end
 end
