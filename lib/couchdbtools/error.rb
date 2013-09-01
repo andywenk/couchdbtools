@@ -4,8 +4,8 @@ require 'logger'
 
 module Couchdbtools
   module Error
-    binding.pry
-    $LOG = Logger.new(Couchdbtools::Config.logfile, 'monthly')
+    config = Couchdbtools::Config.new
+    $LOG = Logger.new(config.logfile, 'monthly')
     $LOG.level = Logger::ERROR
 
     def self.log_error(name, message)
@@ -14,7 +14,8 @@ module Couchdbtools
 
     class DatabaseDoesNotExist < StandardError
       def initialize
-        Error.log_error(self, 'The requested database does not exist.')
+        @message = 'The requested database does not exist.'
+        Error.log_error(self, @message)
       end
     end
   end

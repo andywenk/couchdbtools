@@ -6,7 +6,7 @@ module Couchdbtools
   HOMEPAGE = "http://github.andywenk/couchdbtools"
   
   class Config
-    attr_reader :dbname, :port, :protocol, :logfile
+    attr_reader :host, :db_name, :port, :protocol, :logfile
 
     def initialize
       load
@@ -17,9 +17,10 @@ module Couchdbtools
     def load
       config_path = File.expand_path('../../../', __FILE__)
       config = symbolize_keys(YAML.load_file("#{config_path}/config.yml"))
-      @dbname = config[:db][:name]
+      @db_name = config[:db][:name]
       @port = config[:db][:port]
       @protocol = config[:db][:protocol]
+      @host = config[:db][:host]
       @logfile = config[:app][:logfile]
     end
 

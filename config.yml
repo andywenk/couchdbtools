@@ -1,10 +1,11 @@
 # -*- encoding : utf-8 -*-
 
 app:
-  logfile: 'couchdbtools.log'
+  logfile: './couchdbtools.log'
 
 db:
-  name: 'hannebambel'
+  host: 'localhost'
+  name: 'kassenbuch'
   port: '5984'
   protocol: 'http'
 

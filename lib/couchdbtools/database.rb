@@ -4,25 +4,37 @@ require 'couchdbtools/request'
 
 module Couchdbtools
   class Database
-    attr_accessor :path
 
-    def initialize(options_hash)
-      initialize_from_hash(options_hash)
+    def initialize
       @request = Couchdbtools::Request.new
     end
 
     def all_dbs
       @request.method = :get
-      @request.uri = '/_all_dbs'
-      @request.invoke
-      @request.response
+      @request.uri = '_all_dbs'
+      execute
+    end
+
+    def create(db_name)
+      @request.method = :put
+      @request.uri = db_name
+      execute
+    end
+
+    def delete(db_name)
+      @request.method = :delete
+      @request.uri = db_name
+      execute
     end
 
     private
 
-    def initialize_from_hash(options_hash)
-      options_hash.each_pair do | k, v |
-        send("#{k}=", v)
+    def execute
+      begin
+        @request.invoke
+        @request.response
+      rescue Exception => e
+        puts e.message
       end
     end
   end
