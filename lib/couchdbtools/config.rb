@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 require 'yaml'
+require 'couchdbtools/request'
 
 module Couchdbtools
   HOMEPAGE = "http://github.andywenk/couchdbtools"

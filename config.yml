@@ -1,5 +1,7 @@
 # -*- encoding : utf-8 -*-
-
+#
+# configuration file for couchdbtools
+#
 app:
   logfile: './couchdbtools.log'
 

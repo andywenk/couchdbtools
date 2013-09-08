@@ -5,10 +5,11 @@ require 'uri'
 require 'couchdbtools/config'
 require 'multi_json'
 require 'rest_client'
+require 'json'
 
 module Couchdbtools
   class Request
-    attr_accessor :method, :uri
+    attr_accessor :method, :uri, :params
 
     def initialize
       @config = Couchdbtools::Config.new
@@ -16,13 +17,22 @@ module Couchdbtools
 
     def invoke
       raise Couchdbtools::Error::DatabaseDoesNotExist.new unless check
-      uri = "#{parsed_uri}#{@uri}"
-      request = RestClient::Request.new(
-        :method => method,
-        :url => uri
-      )
+      @uri = "#{parsed_uri}#{@uri}"
+      send(@method)
+    end
 
-      @response = request.execute
+    def get
+      @response = RestClient.get uri, :content_type => :json, :accept => :json
+    end
+
+    def post
+      @response = RestClient.post @uri, @params.to_json, :content_type => :json, :accept => :json
+    end
+
+    def put
+    end
+
+    def delete
     end
 
     def response
