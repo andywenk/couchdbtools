@@ -31,6 +31,10 @@ module Couchdbtools
     Couchdbtools::Database.new
   end
 
+  def self.uuids
+    Couchdbtools::Database.new.uuids
+  end
+
   # @param db_name 
   # @return an instance of Document
   def self.document db_name = nil

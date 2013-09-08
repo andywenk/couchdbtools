@@ -6,24 +6,15 @@ module Couchdbtools
   # Document
   # 
   # Wrapping the CouchDB Document API
-  # 
-  # Example:
-  #   Couchdbtools.setup
-  #   documents = Couchdbtools.document
-  #   documents.id = 'b0123'
-  #   documents.get
   #
-  #   {:_id=>"b0123",
-  #    :_rev=>"1-f40befcf3da87b7f8cadea607756b95d",
-  #    :typ=>"Einnahme",
-  #    :mwst=>0.07,
-  #    :datum=>"2011-04-02",
-  #    :betrag=>24.9,
-  #    :beschreibung=>"Büromaterial"}
+  # Example:
+  #
+  #    tba
+  # 
   # @author Andy Wenk andy@nms.de
   class Document
 
-    attr_accessor :response, :db_name, :id, :params
+    attr_accessor :response, :db_name, :params
 
     # initialize the class
     def initialize(db_name)
@@ -39,29 +30,33 @@ module Couchdbtools
       execute
     end
 
-    # receive one specific document
+    # get one specific document
     # maps to GET /db_name/doc_id
-    def get
+    def get(params = nil)
       @request.method = :get
-      @request.uri = "#{@db_name}/#{@id}"
-      execute
+      execute(params)
     end
 
     # create one new document
     # maps to POST /db_name -d json_string
     def post(params = nil)
-      params ||= @params
       @request.method = :post
-      @request.uri = "#{@db_name}"
-      @request.params = params
-      execute
+      execute(params)
+    end
+
+    def put(params = nil)
+      @request.method = :put
+      execute(params)
     end
 
     private
 
     # invoke the request and return the response result
-    def execute
+    def execute(params = nil)
       begin
+        params ||= @params
+        @request.uri = "#{@db_name}"
+        @request.params = params
         @request.invoke
         @request.response
       rescue Exception => e
