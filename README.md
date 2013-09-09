@@ -4,7 +4,7 @@ Yet another CouchDB wrapper? Oh my! But wait. This my approach to create a very 
 API to run against CouchDB. The target is to map the RESTful CouchDB API so that
 it's possible to use the one from the gem here intuitively. 
 
-This is version 0.0.1 
+This is version 0.0.2 
 
 ## Installation
 
@@ -24,6 +24,17 @@ Or install it yourself as:
 
 Here are some very basic examples.
 
+### Server
+
+#### GET
+
+##### all existing databases
+    
+    Couchdbtools.setup
+    puts Couchdbtools.server.all_dbs
+    _replicator
+    _users
+
 ### Database
 
 #### PUT
@@ -33,15 +44,6 @@ Here are some very basic examples.
     Couchdbtools.setup
     Couchdbtools.database.create('moonbeans')
     {:ok=>true}
-
-#### GET
-
-##### all existing databases
-    
-    Couchdbtools.setup
-    puts Couchdbtools.database.all_dbs
-    _replicator
-    _users
 
 #### DELETE
 
@@ -87,7 +89,6 @@ Here are some very basic examples.
     {:ok=>true, :id=>"x0043", :rev=>"2-92a0d1ea9f15d1cc046455482bafe3fc"}
     documents.get({id: 'x0043'})
     {:_id=>"x0043", :_rev=>"2-92a0d1ea9f15d1cc046455482bafe3fc", :name=>"harry belafonte", :age=>86}
-
 
 ## Contributing
 

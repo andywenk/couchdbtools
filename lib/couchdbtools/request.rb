@@ -1,7 +1,6 @@
 # -*- encoding : utf-8 -*-
 
 require 'net/http'
-require 'uri'
 require 'couchdbtools/config'
 require 'multi_json'
 require 'rest_client'

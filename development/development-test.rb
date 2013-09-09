@@ -8,15 +8,18 @@
 require 'couchdbtools'
 
 Couchdbtools.setup
+#puts Couchdbtools.database.all_docs_by_ids('kassenbuch', {keys: ["x0043","b003"]})
 
-#puts Couchdbtools.database.create('moonbeans')
+#Couchdbtools.server.all_dbs
+
+#puts Couchdbtools.database.create('fragile')
 #puts Couchdbtools.database.all_docs('moonbeans')
 
-#puts Couchdbtools.database.delete('moonbeans')
-#puts Couchdbtools.database.all_dbs
+#puts Couchdbtools.database.delete('fragile')
+#puts Couchdbtools.server.all_dbs
 
 #documents = Couchdbtools.document
-#documents.put({id: 'x0043', name: 'harry belafonte'})
+#puts documents.put({id: 'x0045', name: 'harry belafonte'})
 
 # documents.put({id: 'x0043', _rev: '1-19f138f135ddb4c6c2a7fdff4563844c', name: 'harry belafonte', age: 86})
 # puts documents.get({id: 'x0043'})

@@ -2,6 +2,7 @@
 
 require 'couchdbtools/config'
 require 'couchdbtools/error'
+require 'couchdbtools/server'
 require 'couchdbtools/database'
 require 'couchdbtools/document'
 
@@ -19,11 +20,17 @@ module Couchdbtools
   # any interaction with Couchdbtools is started
   def self.setup
     @@config = Couchdbtools::Config.new
+    @request = ''
   end
 
   # @return config 
   def self.config
     @@config
+  end
+
+  # @return an instance of Server 
+  def self.server
+    Couchdbtools::Server.new
   end
 
   # @return an instance of Database 
@@ -39,5 +46,14 @@ module Couchdbtools
   # @return an instance of Document
   def self.document db_name = nil
     Couchdbtools::Document.new db_name || @@config.db_name
+  end
+
+  def self.execute(request)
+    begin
+      request.invoke
+      request.response
+    rescue Exception => e
+      puts e.message
+    end
   end
 end

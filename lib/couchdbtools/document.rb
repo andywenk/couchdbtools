@@ -53,15 +53,10 @@ module Couchdbtools
 
     # invoke the request and return the response result
     def execute(params = nil)
-      begin
-        params ||= @params
-        @request.uri = "#{@db_name}"
-        @request.params = params
-        @request.invoke
-        @request.response
-      rescue Exception => e
-        puts e.message
-      end
+      params ||= @params
+      @request.uri = "#{@db_name}"
+      @request.params = params
+      Couchdbtools.execute(@request)
     end
   end
 end
