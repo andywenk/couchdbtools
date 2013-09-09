@@ -31,7 +31,7 @@ Here are some very basic examples.
 ##### all existing databases
     
     Couchdbtools.setup
-    puts Couchdbtools.server.all_dbs
+    Couchdbtools.server.all_dbs
     _replicator
     _users
 
