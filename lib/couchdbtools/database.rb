@@ -2,8 +2,6 @@
 
 require 'couchdbtools/request'
 
-# Database module
-# 
 # Database API
 # 
 # Example:
