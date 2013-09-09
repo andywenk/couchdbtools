@@ -6,8 +6,9 @@ require 'couchdbtools/request'
 # 
 # Example:
 #   Couchdbtools.setup
-#   Couchdbtools.database.create('moonbeans')
-#   {:ok=>true}
+#   Couchdbtools.server.all_dbs
+#   _replicator
+#   _user
 # @author Andy Wenk andy@nms.de
 module Couchdbtools
   class Server
