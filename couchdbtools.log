@@ -1,13 +1,13 @@
-# Logfile created on 2013-10-12 21:11:54 +0200 by logger.rb/36483
-E, [2013-10-12T21:11:54.965230 #742] ERROR -- : [91m
+# Logfile created on 2013-09-27 22:53:27 +0200 by logger.rb/36483
+E, [2013-09-27T23:01:59.292631 #10082] ERROR -- : [91m
 [ERROR:] in Couchdbtools::Error::DatabaseDoesNotExist with message: The requested database does not exist.
 
 [39m
-E, [2013-10-12T21:11:54.971684 #742] ERROR -- : [91m
+E, [2013-09-27T23:04:58.328963 #10149] ERROR -- : [91m
 [ERROR:] in Couchdbtools::Error::DatabaseDoesNotExist with message: The requested database does not exist.
 
 [39m
-E, [2013-10-12T21:12:59.635497 #757] ERROR -- : [91m
+E, [2013-09-27T23:05:08.840585 #10154] ERROR -- : [91m
 [ERROR:] in Couchdbtools::Error::DatabaseDoesNotExist with message: The requested database does not exist.
 
 [39m

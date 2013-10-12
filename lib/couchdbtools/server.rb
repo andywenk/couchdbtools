@@ -3,7 +3,7 @@
 require 'couchdbtools/request'
 
 # Server API
-# 
+#
 # Example:
 #   Couchdbtools.setup
 #   Couchdbtools.server.all_dbs
@@ -19,6 +19,7 @@ module Couchdbtools
 
     # get all existing databases
     def all_dbs
+      @request.no_check = true
       @request.method = :get
       @request.uri = '_all_dbs'
       Couchdbtools.execute(@request)
@@ -26,6 +27,7 @@ module Couchdbtools
 
     # get one uuid
     def uuids
+      @request.no_check = true
       @request.method = :get
       @request.uri = '_uuids'
       Couchdbtools.execute(@request)

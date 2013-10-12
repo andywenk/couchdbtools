@@ -10,17 +10,25 @@ require 'couchdbtools'
 Couchdbtools.setup
 #puts Couchdbtools.database.all_docs_by_ids('kassenbuch', {keys: ["x0043","b003"]})
 
-#Couchdbtools.server.all_dbs
+#puts Couchdbtools.uuids
 
-#puts Couchdbtools.database.create('fragile')
+#puts Couchdbtools.config.inspect
+
+#puts Couchdbtools.server.all_dbs
+puts Couchdbtools.database.create('0?kassenbuch#+?/')
+#puts Couchdbtools.database.create('kassenbuch')
+#puts Couchdbtools.database.get('kassenbuch')
+
+#puts Couchdbtools.database.create('kassenbuch')
 #puts Couchdbtools.database.all_docs('moonbeans')
 
-#puts Couchdbtools.database.delete('fragile')
+#puts Couchdbtools.database.delete('couchdbtools-test')
 #puts Couchdbtools.server.all_dbs
 
 #documents = Couchdbtools.document
 #puts documents.put({id: 'x0045', name: 'harry belafonte'})
-
+#puts documents.get({id: 'x0045'})
+#puts documents.head({id: 'x0045', _rev: '2-9614a14bce53a8ebd1502d7e249d3090'})
 # documents.put({id: 'x0043', _rev: '1-19f138f135ddb4c6c2a7fdff4563844c', name: 'harry belafonte', age: 86})
 # puts documents.get({id: 'x0043'})
 

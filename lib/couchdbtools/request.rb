@@ -7,39 +7,46 @@ require 'rest_client'
 
 module Couchdbtools
   class Request
-    attr_accessor :method, :uri, :params
+    attr_accessor :method, :uri, :params, :no_check
+    attr_reader :request, :config
 
     def initialize
       @config = Couchdbtools::Config.new
     end
 
     def invoke
-      raise Couchdbtools::Error::DatabaseDoesNotExist.new unless check
+      unless no_check
+        raise Couchdbtools::Error::DatabaseDoesNotExist.new unless check
+      end
       @uri = "#{base_uri}#{@uri}"
       send(@method)
     end
 
-    def get
-      @response = RestClient.get request_uri, :accept => :json
+    def post
+      @request = RestClient.post uri, params.to_json, content_type: :json, accept: :json
     end
 
-    def post
-      @response = RestClient.post @uri, @params.to_json, :content_type => :json, :accept => :json
+    def get
+      @request = RestClient.get request_uri, :content_type => :json, :accept => :json
+    end
+
+    def head
+      @request = RestClient.head(request_uri).headers
     end
 
     def put
-      @response = RestClient.put request_uri, params_without_id.to_json, :content_type => :json, :accept => :son
+      @request = RestClient.put request_uri, params_without_id, :content_type => :json, :accept => :json
     end
 
     def delete
-      @response = RestClient.delete @uri, :content_type => :json, :accept => :json
+      @request = RestClient.delete uri, :content_type => :json, :accept => :json
     end
 
     def response
-      MultiJson.load(@response, :symbolize_keys => true)
+      MultiJson.load(request, :symbolize_keys => true)
     end
 
-    private 
+    private
 
     def check
       begin
@@ -56,15 +63,15 @@ module Couchdbtools
     end
 
     def database_present?
-      return true unless @config.db_name && !@config.db_name.empty?
+      return true unless config.db_name && !config.db_name.empty?
       uri = "#{base_uri}#{@config.db_name}"
       json_response = RestClient.get(uri)
       response_as_hash = MultiJson.load(json_response, :symbolize_keys => true)
-      response_as_hash[:db_name] == @config.db_name
+      response_as_hash[:db_name] == config.db_name
     end
 
     def request_uri
-      return @uri unless @params && @params[:id]
+      return uri unless params && params[:id]
       "#{@uri}/#{@params[:id]}"
     end
 
@@ -73,8 +80,8 @@ module Couchdbtools
     end
 
     def params_without_id
-      return {} unless @params
-      @params.dup.select { |k| k != :id }
+      return {} unless params
+      params.dup.select { |k| k != :id }.to_json
     end
   end
 end

@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-require 'logger' 
+require 'logger'
 
 module Couchdbtools
   module Error
@@ -15,6 +15,13 @@ module Couchdbtools
     class DatabaseDoesNotExist < StandardError
       def initialize
         @message = 'The requested database does not exist.'
+        Error.log_error(self, @message)
+      end
+    end
+
+    class DocumentRevisionRequired < StandardError
+      def initialize
+        @message = 'Please provide a document _rev.'
         Error.log_error(self, @message)
       end
     end
