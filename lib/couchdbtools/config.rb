@@ -5,7 +5,7 @@ require 'couchdbtools/request'
 
 module Couchdbtools
   HOMEPAGE = "http://github.andywenk/couchdbtools"
-  
+
   class Config
     attr_reader :host, :db_name, :port, :protocol, :logfile
 
@@ -26,7 +26,7 @@ module Couchdbtools
     end
 
     def symbolize_keys(hash)
-      hash.inject({}) do |result, (key, value)| 
+      hash.inject({}) do |result, (key, value)|
         new_key = key.is_a?(String) ? key.to_sym : key
         new_value = value.is_a?(Hash) ? symbolize_keys(value) : value
         result[new_key] = new_value
@@ -34,5 +34,5 @@ module Couchdbtools
       end
     end
   end
-  
+
 end

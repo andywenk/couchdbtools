@@ -1,9 +1,9 @@
 # -*- encoding : utf-8 -*-
 
+require 'rest-client'
 require 'net/http'
-require 'couchdbtools/config'
 require 'multi_json'
-require 'rest_client'
+require 'couchdbtools/config'
 
 module Couchdbtools
   class Request

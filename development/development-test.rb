@@ -10,12 +10,12 @@ require 'couchdbtools'
 Couchdbtools.setup
 #puts Couchdbtools.database.all_docs_by_ids('kassenbuch', {keys: ["x0043","b003"]})
 
-#puts Couchdbtools.uuids
+puts Couchdbtools.uuids
 
 #puts Couchdbtools.config.inspect
 
 #puts Couchdbtools.server.all_dbs
-puts Couchdbtools.database.create('0?kassenbuch#+?/')
+#puts Couchdbtools.database.create('0?kassenbuch#+?/')
 #puts Couchdbtools.database.create('kassenbuch')
 #puts Couchdbtools.database.get('kassenbuch')
 
