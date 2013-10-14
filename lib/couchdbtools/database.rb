@@ -14,8 +14,8 @@ module Couchdbtools
 
     attr_reader :request
 
-    def initialize
-      @request = Couchdbtools::Request.new
+    def initialize(request)
+      @request = request
     end
 
     # create a new database
@@ -31,14 +31,14 @@ module Couchdbtools
       request.no_check = true
       request.method = :delete
       request.uri = db_name
-      Couchdbtools.execute(@request)
+      Couchdbtools.execute(request)
     end
 
     # get info about a database
     def get(db_name)
       request.method = :get
       request.uri = db_name
-      Couchdbtools.execute(@request)
+      Couchdbtools.execute(request)
     end
 
     # get all docs

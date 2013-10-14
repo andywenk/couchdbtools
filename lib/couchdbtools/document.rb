@@ -14,25 +14,25 @@ module Couchdbtools
   # @author Andy Wenk andy@nms.de
   class Document
 
-    attr_accessor :response, :db_name, :params
+    attr_accessor :response, :db_name, :params, :request
 
     # initialize the class
-    def initialize(db_name)
-      @request = Couchdbtools::Request.new
-      @db_name = db_name
+    def initialize(args)
+      @request = args[:request]
+      @db_name = args[:db_name]
     end
 
     # create one new document
     # maps to POST /db_name -d json_string
     def post(params = nil)
-      @request.method = :post
+      request.method = :post
       execute(params)
     end
 
     # get one specific document
     # maps to GET /db_name/doc_id
     def get(params)
-      @request.method = :get
+      request.method = :get
       execute(params)
     end
 
@@ -40,21 +40,21 @@ module Couchdbtools
     # maps to HEAD /db_name/doc:id
     def head(params)
       raise Couchdbtools::Error::DocumentRevisionRequired unless params['_rev']
-      @request.method = :put
+      request.method = :put
       execute(params)
     end
 
     def put(params = nil)
-      @request.method = :put
+      request.method = :put
       execute(params)
     end
 
     def delete
-      @request.method = :delete
+      request.method = :delete
     end
 
     def copy
-      @request.method = :copy
+      request.method = :copy
     end
 
     private
@@ -62,9 +62,9 @@ module Couchdbtools
     # invoke the request and return the response result
     def execute(params = nil)
       params ||= @params
-      @request.uri = "#{@db_name}"
-      @request.params = params
-      Couchdbtools.execute(@request)
+      request.uri = "#{@db_name}"
+      request.params = params
+      Couchdbtools.execute(request)
     end
   end
 end

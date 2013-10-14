@@ -13,24 +13,26 @@ require 'couchdbtools/request'
 module Couchdbtools
   class Server
 
-    def initialize
-      @request = Couchdbtools::Request.new
+    attr_reader :request
+
+    def initialize(request)
+      @request = request
     end
 
     # get all existing databases
     def all_dbs
-      @request.no_check = true
-      @request.method = :get
-      @request.uri = '_all_dbs'
-      Couchdbtools.execute(@request)
+      request.no_check = true
+      request.method = :get
+      request.uri = '_all_dbs'
+      Couchdbtools.execute(request)
     end
 
     # get one uuid
     def uuids
-      @request.no_check = true
-      @request.method = :get
-      @request.uri = '_uuids'
-      Couchdbtools.execute(@request)
+      request.no_check = true
+      request.method = :get
+      request.uri = '_uuids'
+      Couchdbtools.execute(request)
     end
   end
 end

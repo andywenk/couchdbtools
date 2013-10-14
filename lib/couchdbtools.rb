@@ -20,6 +20,7 @@ module Couchdbtools
   # any interaction with Couchdbtools is started
   def self.setup
     @@config = Couchdbtools::Config.new
+    @@request = Couchdbtools::Request.new(@@config)
   end
 
   # @return config
@@ -29,27 +30,27 @@ module Couchdbtools
 
   # @return an instance of Server
   def self.server
-    Couchdbtools::Server.new
+    Couchdbtools::Server.new(@@request)
   end
 
   # @return an instance of Database
   def self.database
-    Couchdbtools::Database.new
+    Couchdbtools::Database.new(@@request)
   end
 
   # @return uuids
   def self.uuids
-    request = Couchdbtools::Request.new
-    request.no_check = true
-    request.method = :get
-    request.uri = "_uuids"
-    Couchdbtools.execute(request)
+    @@request.no_check = true
+    @@request.method = :get
+    @@request.uri = "_uuids"
+    Couchdbtools.execute(@@request)
   end
 
   # @param db_name
   # @return an instance of Document
   def self.document db_name = nil
-    Couchdbtools::Document.new db_name || @@config.db_name
+    db_name ||= self.config.db_name
+    Couchdbtools::Document.new db_name: db_name, request: @@request
   end
 
   def self.execute(request)

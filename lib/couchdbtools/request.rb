@@ -10,8 +10,8 @@ module Couchdbtools
     attr_accessor :method, :uri, :params, :no_check
     attr_reader :request, :config
 
-    def initialize
-      @config = Couchdbtools::Config.new
+    def initialize(config)
+      @config = config
     end
 
     def invoke
