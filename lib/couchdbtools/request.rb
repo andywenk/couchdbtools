@@ -43,7 +43,7 @@ module Couchdbtools
     end
 
     def response
-      MultiJson.load(request, :symbolize_keys => true)
+      MultiJson.load(request.to_s, :symbolize_keys => true)
     end
 
     private

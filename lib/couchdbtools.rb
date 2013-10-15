@@ -38,14 +38,6 @@ module Couchdbtools
     Couchdbtools::Database.new(@@request)
   end
 
-  # @return uuids
-  def self.uuids
-    @@request.no_check = true
-    @@request.method = :get
-    @@request.uri = "_uuids"
-    Couchdbtools.execute(@@request)
-  end
-
   # @param db_name
   # @return an instance of Document
   def self.document db_name = nil

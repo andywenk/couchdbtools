@@ -10,7 +10,7 @@ require 'couchdbtools'
 Couchdbtools.setup
 #puts Couchdbtools.database.all_docs_by_ids('kassenbuch', {keys: ["x0043","b003"]})
 
-puts Couchdbtools.uuids
+puts Couchdbtools.server.replicate('hallo')
 
 #puts Couchdbtools.config.inspect
 

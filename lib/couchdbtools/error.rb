@@ -25,6 +25,20 @@ module Couchdbtools
         Error.log_error(self, @message)
       end
     end
+
+    class HashAsParamExpected < StandardError
+      def initialize
+        @message = 'The params have to be provided as a Hash'
+        Error.log_error(self, @message)
+      end
+    end
+
+    class EmptyParamNotAllowed < StandardError
+      def initialize
+        @message = 'The params must not be empty'
+        Error.log_error(self, @message)
+      end
+    end
   end
 end
 
