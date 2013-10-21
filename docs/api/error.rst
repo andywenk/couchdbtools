@@ -1,0 +1,2 @@
+Couchdbtools::Error
+===================
