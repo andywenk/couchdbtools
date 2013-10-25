@@ -10,11 +10,11 @@ describe Couchdbtools do
   end
 
   it "expects an instance of Couchdbtools::Server" do
-    expect(Couchdbtools.server).to be_an_instance_of(Couchdbtools::Server)
+    expect(Couchdbtools.server).to be_an_instance_of(Couchdbtools::Api::Server)
   end
 
   it "expects an instance of Couchdbtools::Database" do
-    expect(Couchdbtools.database).to be_an_instance_of(Couchdbtools::Database)
+    expect(Couchdbtools.database).to be_an_instance_of(Couchdbtools::Api::Database)
   end
 
 end
