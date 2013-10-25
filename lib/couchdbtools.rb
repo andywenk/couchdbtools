@@ -2,9 +2,9 @@
 
 require 'couchdbtools/config'
 require 'couchdbtools/error'
-require 'couchdbtools/server'
-require 'couchdbtools/database'
-require 'couchdbtools/document'
+require 'couchdbtools/api/server'
+require 'couchdbtools/api/database'
+require 'couchdbtools/api/document'
 
 # Basic module Couchdbtools
 #
@@ -30,19 +30,19 @@ module Couchdbtools
 
   # @return an instance of Server
   def self.server
-    Couchdbtools::Server.new(@@request)
+    Couchdbtools::Api::Server.new(@@request)
   end
 
   # @return an instance of Database
   def self.database
-    Couchdbtools::Database.new(@@request)
+    Couchdbtools::Api::Database.new(@@request)
   end
 
   # @param db_name
   # @return an instance of Document
   def self.document db_name = nil
     db_name ||= self.config.db_name
-    Couchdbtools::Document.new db_name: db_name, request: @@request
+    Couchdbtools::Api::Document.new db_name: db_name, request: @@request
   end
 
   def self.execute(request)

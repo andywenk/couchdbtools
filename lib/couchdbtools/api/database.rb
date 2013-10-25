@@ -9,7 +9,7 @@ require 'couchdbtools/request'
 #   Couchdbtools.database.create('moonbeans')
 #   {:ok=>true}
 # @author Andy Wenk andy@nms.de
-module Couchdbtools
+module Couchdbtools::Api
   class Database
 
     attr_reader :request

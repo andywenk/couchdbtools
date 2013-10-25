@@ -2,7 +2,7 @@
 
 require 'couchdbtools/request'
 
-module Couchdbtools
+module Couchdbtools::Api
   # Document
   #
   # Wrapping the CouchDB Document API
