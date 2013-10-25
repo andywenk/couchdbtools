@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Couchdbtools::Database do
+describe Couchdbtools::Api::Database do
   before do
     Couchdbtools.setup
   end

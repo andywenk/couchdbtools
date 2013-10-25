@@ -71,3 +71,7 @@ E, [2013-10-15T23:44:41.401240 #392] ERROR -- : [91m
 [ERROR:] in Couchdbtools::Error::HashAsParamExpected with message: The params have to be provided as a Hash
 
 [39m
+E, [2013-10-25T00:30:42.898121 #53569] ERROR -- : [91m
+[ERROR:] in Couchdbtools::Error::HashAsParamExpected with message: The params have to be provided as a Hash
+
+[39m
