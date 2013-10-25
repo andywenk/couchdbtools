@@ -11,3 +11,7 @@ E, [2013-09-27T23:05:08.840585 #10154] ERROR -- : [91m
 [ERROR:] in Couchdbtools::Error::DatabaseDoesNotExist with message: The requested database does not exist.
 
 [39m
+E, [2013-10-25T16:42:02.456474 #78159] ERROR -- : [91m
+[ERROR:] in Couchdbtools::Error::HashAsParamExpected with message: The params have to be provided as a Hash
+
+[39m
