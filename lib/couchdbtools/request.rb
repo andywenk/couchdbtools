@@ -6,6 +6,9 @@ require 'multi_json'
 require 'couchdbtools/config'
 
 module Couchdbtools
+  # request
+  #
+  # @author Andy Wenk andy@nms.de
   class Request
     attr_accessor :method, :uri, :params, :no_check
     attr_reader :request, :config
@@ -51,23 +54,21 @@ module Couchdbtools
     def check
       begin
         couchdb_running? && database_present?
-      rescue RestClient::ResourceNotFound => e
-        puts e.message
+      rescue RestClient::ResourceNotFound => exception
+        puts exception.message
       end
     end
 
     def couchdb_running?
-      json_response = RestClient.get(base_uri)
-      response_as_hash = MultiJson.load(json_response, :symbolize_keys => true)
+      response_as_hash = MultiJson.load(RestClient.get(base_uri), :symbolize_keys => true)
       !response_as_hash[:couchdb].nil?
     end
 
     def database_present?
-      return true unless config.db_name && !config.db_name.empty?
+      db_name = config.db_name
+      return true unless db_name && !db_name.empty?
       uri = "#{base_uri}#{@config.db_name}"
-      json_response = RestClient.get(uri)
-      response_as_hash = MultiJson.load(json_response, :symbolize_keys => true)
-      response_as_hash[:db_name] == config.db_name
+      MultiJson.load(RestClient.get(uri), :symbolize_keys => true)[:db_name] == db_name
     end
 
     def request_uri
@@ -81,7 +82,7 @@ module Couchdbtools
 
     def params_without_id
       return {} unless params
-      params.dup.select { |k| k != :id }.to_json
+      params.dup.select { |key| key != :id }.to_json
     end
   end
 end

@@ -12,6 +12,9 @@ module Couchdbtools
       $LOG.error("\033[91m\n[ERROR:] in #{name} with message: #{message}\n\n\033[39m")
     end
 
+    # DatabaseDoesNotExist
+    #
+    # @author Andy Wenk andy@nms.de
     class DatabaseDoesNotExist < StandardError
       def initialize
         @message = 'The requested database does not exist.'
@@ -19,6 +22,9 @@ module Couchdbtools
       end
     end
 
+    # DocumentRevisionRequired
+    #
+    # @author Andy Wenk andy@nms.de
     class DocumentRevisionRequired < StandardError
       def initialize
         @message = 'Please provide a document _rev.'
@@ -26,6 +32,9 @@ module Couchdbtools
       end
     end
 
+    # HashAsParamExpected
+    #
+    # @author Andy Wenk andy@nms.de
     class HashAsParamExpected < StandardError
       def initialize
         @message = 'The params have to be provided as a Hash'
@@ -33,6 +42,9 @@ module Couchdbtools
       end
     end
 
+    # EmptyParamNotAllowed
+    #
+    # @author Andy Wenk andy@nms.de
     class EmptyParamNotAllowed < StandardError
       def initialize
         @message = 'The params must not be empty'

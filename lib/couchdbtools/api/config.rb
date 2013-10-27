@@ -2,12 +2,13 @@
 
 require 'couchdbtools/request'
 
-# Database API
-#
-# Example:
-#   tba
-# @author Andy Wenk andy@nms.de
 module Couchdbtools::Api
+  # Config
+  #
+  # Example:
+  #   tba
+  #
+  # @author Andy Wenk andy@nms.de
   class Config
 
     attr_reader :request

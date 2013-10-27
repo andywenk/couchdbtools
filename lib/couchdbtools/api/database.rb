@@ -2,14 +2,15 @@
 
 require 'couchdbtools/request'
 
-# Database API
-#
-# Example:
-#   Couchdbtools.setup
-#   Couchdbtools.database.create('moonbeans')
-#   {:ok=>true}
-# @author Andy Wenk andy@nms.de
 module Couchdbtools::Api
+  # Database
+  #
+  # Example:
+  #   Couchdbtools.setup
+  #   Couchdbtools.database.create('moonbeans')
+  #   {:ok=>true}
+  #
+  # @author Andy Wenk andy@nms.de
   class Database
 
     attr_reader :request

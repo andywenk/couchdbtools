@@ -2,15 +2,16 @@
 
 require 'couchdbtools/request'
 
-# Server API
-#
-# Example:
-#   Couchdbtools.setup
-#   Couchdbtools.server.all_dbs
-#   _replicator
-#   _user
-# @author Andy Wenk andy@nms.de
 module Couchdbtools::Api
+  # Server
+  #
+  # Example:
+  #   Couchdbtools.setup
+  #   Couchdbtools.server.all_dbs
+  #   _replicator
+  #   _user
+  #
+  # @author Andy Wenk andy@nms.de
   class Server
 
     attr_reader :request
@@ -44,13 +45,13 @@ module Couchdbtools::Api
     # @param heartbeat (boolean)
     def db_updates(params_hash = {})
       begin
-        raise Couchdbtools::Error::HashAsParamExpected unless params_hash.is_a?(Hash)
+        raise_error_unless_params_is_a_hash(params_hash)
         request.no_check = true
         request.method = :get
         request.uri = "_db_updates#{querystring(params_hash)}"
         Couchdbtools.execute(request)
-      rescue Exception => e
-        e.message
+      rescue Exception => exception
+        exception.message
       end
     end
 
@@ -60,13 +61,13 @@ module Couchdbtools::Api
     # @param offset (number)
     def log(params_hash = {})
       begin
-        raise Couchdbtools::Error::HashAsParamExpected unless params_hash.is_a?(Hash)
+        raise_error_unless_params_is_a_hash(params_hash)
         request.no_check = true
         request.method = :get
         request.uri = "_log#{querystring(params_hash)}"
         Couchdbtools.execute(request)
-      rescue Exception => e
-        e.message
+      rescue Exception => exception
+        exception.message
       end
     end
 
@@ -81,15 +82,15 @@ module Couchdbtools::Api
     # @param target (string)
     def replicate(params_hash)
       begin
-        raise Couchdbtools::Error::HashAsParamExpected unless params_hash.is_a?(Hash)
+        raise_error_unless_params_is_a_hash(params_hash)
         raise Couchdbtools::Error::EmptyParamNotAllowed if params_hash.empty?
         request.no_check = true
         request.method = :post
         request.params = params_hash
         request.uri = "_replicate#{querystring(params_hash)}"
         Couchdbtools.execute(request)
-      rescue Exception => e
-        e.message
+      rescue Exception => exception
+        exception.message
       end
     end
 
@@ -121,13 +122,12 @@ module Couchdbtools::Api
     end
 
     def config(params_hash)
-      raise Couchdbtools::Error::HashAsParamExpected unless params_hash.is_a?(Hash)
+      raise_error_unless_params_is_a_hash(params_hash)
       request.no_check = true
       request.method = :put
       request.uri = "_config#{querystring(params_hash)}"
       Couchdbtools.execute(request)
     end
-
 
     private
 
@@ -135,10 +135,14 @@ module Couchdbtools::Api
     # @param query_params (hash)
     def querystring(query_params)
       return "" if query_params.empty?
-      query = query_params.map do |k,v|
-        "#{k}=#{v}"
+      query = query_params.map do |key, value|
+        "#{key}=#{value}"
       end
       "?#{query.join('&')}"
+    end
+
+    def raise_error_unless_params_is_a_hash(params_hash)
+      raise Couchdbtools::Error::HashAsParamExpected unless params_hash.is_a?(Hash)
     end
   end
 end
