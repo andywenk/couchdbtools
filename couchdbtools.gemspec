@@ -1,6 +1,5 @@
 # coding: utf-8
 $:.push File.expand_path("../lib", __FILE__)
-require 'couchdbtools/version'
 require 'couchdbtools/config'
 
 Gem::Specification.new do |spec|
