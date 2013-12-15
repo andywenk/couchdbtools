@@ -11,8 +11,8 @@ module Couchdbtools
 
     def self.log_error(name = '', message = '', exception = nil)
       if !exception.nil? && $LOG.debug?
-        message = "inspection: #{exception.inspect}\n\n"
-        message << "backtrace: #{exception.backtrace}"
+        message = "[EXCEPTION]: #{exception.inspect}\n"
+        message << "[BACKTRACE]: \n#{exception.backtrace.join("\n")}"
         puts message
         $LOG.error("\n#{message}\n")
       else
