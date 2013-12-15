@@ -22,3 +22,4 @@ development/*
 *.log
 defaults.reek
 .travis.yml
+.rvmrc
