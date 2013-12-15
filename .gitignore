@@ -19,3 +19,6 @@ tmp
 *.stderr
 *.stdout
 development/*
+*.log
+defaults.reek
+.travis.yml
