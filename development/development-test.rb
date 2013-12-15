@@ -13,8 +13,8 @@ Couchdbtools.setup
 #puts Couchdbtools.server.replicate('hallo')
 
 #puts Couchdbtools.config.inspect
+puts Couchdbtools.server.db_updates({ timeout: 20 })
 
-puts Couchdbtools.server.all_dbs
 #puts Couchdbtools.database.create('0?kassenbuch#+?/')
 #puts Couchdbtools.database.create('kassenbuch')
 #puts Couchdbtools.database.get('kassenbuch')

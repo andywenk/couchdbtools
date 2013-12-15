@@ -46,7 +46,11 @@ module Couchdbtools
     end
 
     def response
-      MultiJson.load(request.to_s, :symbolize_keys => true)
+      begin
+        MultiJson.load(request.to_s, :symbolize_keys => true)
+      rescue MultiJson::LoadError => exception
+        Couchdbtools::Error.log_error(exception.inspect, exception.message, exception)
+      end
     end
 
     private

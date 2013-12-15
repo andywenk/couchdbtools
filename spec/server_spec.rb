@@ -5,6 +5,10 @@ describe Couchdbtools::Api::Server do
     Couchdbtools.setup
   end
 
+  it "expects the answer to be an Array" do
+    expect(Couchdbtools.server.active_tasks).to be_an_instance_of(Array)
+  end
+
   it "should return all available databases" do
     Couchdbtools.server.all_dbs.should include  "_replicator"
     Couchdbtools.server.all_dbs.should include  "_users"
@@ -14,12 +18,8 @@ describe Couchdbtools::Api::Server do
     expect(Couchdbtools.server.uuids).to have_key(:uuids)
   end
 
-  it "expects the answer to be an Array" do
-    expect(Couchdbtools.server.active_tasks).to be_an_instance_of(Array)
-  end
-
   it "expects db_updates" do
-    pending "has to be implemented"
+    expect(Couchdbtools.server.db_updates).to have_key (:db_name)
   end
 
   it "expects a log" do

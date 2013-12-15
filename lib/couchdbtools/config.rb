@@ -1,16 +1,20 @@
 # -*- encoding : utf-8 -*-
 
 require 'yaml'
+require 'couchdbtools/helper'
 require 'couchdbtools/request'
 
 module Couchdbtools
+  VERSION = "0.0.3"
   HOMEPAGE = "http://github.andywenk/couchdbtools"
 
   # Config
   #
   # @author Andy Wenk andy@nms.de
   class Config
-    attr_reader :host, :db_name, :port, :protocol, :logfile
+    include Couchdbtools::Helper
+
+    attr_reader :host, :db_name, :port, :protocol, :logfile, :loglevel, :log_date_time_format
 
     def initialize
       load
@@ -19,31 +23,27 @@ module Couchdbtools
     private
 
     def load
-      config_path = File.expand_path('../../../', __FILE__)
-      config = symbolize_keys(YAML.load_file("#{config_path}/config.yml"))
-      config_for_db(config[:db])
-      @logfile = config[:app][:logfile]
+      config_for_db
+      log_attributes
     end
 
-    def symbolize_keys(hash)
-      hash.inject({}) do |result, (key, value)|
-        symbolized_key(result, key, value)
-      end
+    def log_attributes
+      @logfile = config_data[:app][:logfile]
+      @loglevel = config_data[:app][:loglevel]
+      @log_date_time_format = config_data[:app][:log_date_time_format]
     end
 
-    def symbolized_key(result, key, value)
-      new_key = key.is_a?(String) ? key.to_sym : key
-      new_value = value.is_a?(Hash) ? symbolize_keys(value) : value
-      result[new_key] = new_value
-      result
-    end
-
-    def config_for_db(db)
+    def config_for_db
+      db = config_data[:db]
       @db_name = db[:name]
       @port = db[:port]
       @protocol = db[:protocol]
       @host = db[:host]
     end
-  end
 
+    def config_data
+      config_path = File.expand_path('../../../', __FILE__)
+      symbolize_keys(YAML.load_file("#{config_path}/config.yml"))
+    end
+  end
 end

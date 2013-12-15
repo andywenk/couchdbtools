@@ -6,10 +6,21 @@ module Couchdbtools
   module Error
     config = Couchdbtools::Config.new
     $LOG = Logger.new(config.logfile, 'monthly')
-    $LOG.level = Logger::ERROR
+    $LOG.datetime_format = config.log_date_time_format
+    $LOG.level = config.loglevel
 
-    def self.log_error(name, message)
-      $LOG.error("\033[91m\n[ERROR:] in #{name} with message: #{message}\n\n\033[39m")
+    def self.log_error(name = '', message = '', exception = nil)
+      if !exception.nil? && $LOG.debug?
+        message = "inspection: #{exception.inspect}\n\n"
+        message << "backtrace: #{exception.backtrace}"
+        puts message
+        $LOG.error("\n#{message}\n")
+      else
+        message = "in #{name} with message: #{message}"
+        puts message
+        $LOG.error("#{message}\n\n")
+      end
+      return
     end
 
     # DatabaseDoesNotExist
