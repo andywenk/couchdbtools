@@ -11,7 +11,7 @@ module Couchdbtools
   # @author Andy Wenk andy@nms.de
   class Request
     attr_accessor :method, :uri, :params, :no_check
-    attr_reader :request, :config
+    attr_reader :response, :config
 
     def initialize(config)
       @config = config
@@ -26,28 +26,31 @@ module Couchdbtools
     end
 
     def post
-      @request = RestClient.post uri, params.to_json, content_type: :json, accept: :json
+      @response = RestClient.post uri, params.to_json, content_type: :json, accept: :json
     end
 
     def get
-      @request = RestClient.get request_uri, :content_type => :json, :accept => :json
+      @response = RestClient.get request_uri, content_type: :json, accept: :json
     end
 
     def head
-      @request = RestClient.head(request_uri).headers
+      @response = RestClient.head(request_uri).headers
     end
 
     def put
-      @request = RestClient.put request_uri, params_without_id, :content_type => :json, :accept => :json
+      @response = RestClient.put request_uri, params_without_id, content_type: :json, accept: :json
     end
 
     def delete
-      @request = RestClient.delete uri, :content_type => :json, :accept => :json
+      @response = RestClient.delete uri, content_type: :json, accept: :json
     end
 
     def response
       begin
-        MultiJson.load(request.to_s, :symbolize_keys => true)
+        unless is_json?(@response)
+          return @response
+        end
+        MultiJson.load(@response.to_s, symbolize_keys: true)
       rescue MultiJson::LoadError => exception
         Couchdbtools::Error.log_error(exception.inspect, exception.message, exception)
       end
@@ -64,7 +67,7 @@ module Couchdbtools
     end
 
     def couchdb_running?
-      response_as_hash = MultiJson.load(RestClient.get(base_uri), :symbolize_keys => true)
+      response_as_hash = MultiJson.load(RestClient.get(base_uri), symbolize_keys: true)
       !response_as_hash[:couchdb].nil?
     end
 
@@ -72,7 +75,7 @@ module Couchdbtools
       db_name = config.db_name
       return true unless db_name && !db_name.empty?
       uri = "#{base_uri}#{@config.db_name}"
-      MultiJson.load(RestClient.get(uri), :symbolize_keys => true)[:db_name] == db_name
+      MultiJson.load(RestClient.get(uri), symbolize_keys: true)[:db_name] == db_name
     end
 
     def request_uri
@@ -87,6 +90,14 @@ module Couchdbtools
     def params_without_id
       return {} unless params
       params.dup.select { |key| key != :id }.to_json
+    end
+
+    def is_json?(suspected_json)
+      begin
+        !!JSON.parse(suspected_json)
+      rescue
+        false
+      end
     end
   end
 end

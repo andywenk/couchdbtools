@@ -15,7 +15,7 @@ module Couchdbtools
       raise Couchdbtools::Error::HashAsParamExpected unless params_hash.is_a?(Hash)
     end
 
-    def raise_error_if_params_are_empty
+    def raise_error_if_params_are_empty(params_hash)
       raise Couchdbtools::Error::EmptyParamNotAllowed if params_hash.empty?
     end
 

@@ -71,8 +71,8 @@ module Couchdbtools::Api
     # http://docs.couchdb.org/en/latest/api/server/common.html#replicate
     def replicate(params_hash)
       begin
-        Couchdbtools::Helper.raise_error_unless_params_is_a_hash(params_hash)
-        Couchdbtools::Helper.raise_error_if_params_are_empty(params_hash)
+        raise_error_unless_params_is_a_hash(params_hash)
+        raise_error_if_params_are_empty(params_hash)
         request.no_check = true
         request.method = :post
         request.params = params_hash
