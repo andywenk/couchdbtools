@@ -21,7 +21,6 @@ module Couchdbtools::Api
 
     # create a new database
     def create(db_name)
-      request.no_check = true
       request.method = :put
       request.uri = db_name
       Couchdbtools.execute(request)
@@ -29,7 +28,6 @@ module Couchdbtools::Api
 
     # delete an existing database
     def delete(db_name)
-      request.no_check = true
       request.method = :delete
       request.uri = db_name
       Couchdbtools.execute(request)

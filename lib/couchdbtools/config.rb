@@ -28,9 +28,10 @@ module Couchdbtools
     end
 
     def log_attributes
-      @logfile = config_data[:app][:logfile]
-      @loglevel = config_data[:app][:loglevel]
-      @log_date_time_format = config_data[:app][:log_date_time_format]
+      config_data_app = config_data[:app]
+      @logfile = config_data_app[:logfile]
+      @loglevel = config_data_app[:loglevel]
+      @log_date_time_format = config_data_app[:log_date_time_format]
     end
 
     def config_for_db

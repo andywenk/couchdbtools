@@ -24,7 +24,6 @@ module Couchdbtools::Api
     # get the active tasks
     # http://docs.couchdb.org/en/latest/api/server/common.html#active-tasks
     def active_tasks
-      request.no_check = true
       request.method = :get
       request.uri = '_active_tasks'
       Couchdbtools.execute(request)
@@ -33,7 +32,6 @@ module Couchdbtools::Api
     # get all existing databases
     # http://docs.couchdb.org/en/latest/api/server/common.html#all-dbs
     def all_dbs
-      request.no_check = true
       request.method = :get
       request.uri = '_all_dbs'
       Couchdbtools.execute(request)
@@ -44,7 +42,6 @@ module Couchdbtools::Api
     def db_updates(params_hash = {})
       begin
         raise_error_unless_params_is_a_hash(params_hash)
-        request.no_check = true
         request.method = :get
         request.uri = "_db_updates#{querystring(params_hash)}"
         Couchdbtools.execute(request)
@@ -58,7 +55,6 @@ module Couchdbtools::Api
     def log(params_hash = {})
       begin
         raise_error_unless_params_is_a_hash(params_hash)
-        request.no_check = true
         request.method = :get
         request.uri = "_log#{querystring(params_hash)}"
         Couchdbtools.execute(request)
@@ -73,10 +69,11 @@ module Couchdbtools::Api
       begin
         raise_error_unless_params_is_a_hash(params_hash)
         raise_error_if_params_are_empty(params_hash)
-        request.no_check = true
-        request.method = :post
-        request.params = params_hash
-        request.uri = "_replicate#{querystring(params_hash)}"
+        request.initialize_from_hash({
+          method: :post,
+          params: params_hash,
+          uri: "_replicate#{querystring(params_hash)}"
+        })
         Couchdbtools.execute(request)
       rescue Exception => exception
         exception.message
@@ -86,7 +83,6 @@ module Couchdbtools::Api
     # restart CouchDB
     # http://docs.couchdb.org/en/latest/api/server/common.html#restart
     def restart
-      request.no_check = true
       request.method = :post
       request.uri = "_restart"
       Couchdbtools.execute(request)
@@ -95,7 +91,6 @@ module Couchdbtools::Api
     # get stats
     # http://docs.couchdb.org/en/latest/api/server/common.html#stats
     def stats
-      request.no_check = true
       request.method = :get
       request.uri = "_stats"
       Couchdbtools.execute(request)
@@ -104,7 +99,6 @@ module Couchdbtools::Api
     # get one uuid
     # http://docs.couchdb.org/en/latest/api/server/common.html#uuids
     def uuids
-      request.no_check = true
       request.method = :get
       request.uri = '_uuids'
       Couchdbtools.execute(request)

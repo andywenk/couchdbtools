@@ -10,17 +10,21 @@ module Couchdbtools
   #
   # @author Andy Wenk andy@nms.de
   class Request
-    attr_accessor :method, :uri, :params, :no_check
+    attr_accessor :method, :uri, :params, :check
     attr_reader :response, :config
 
     def initialize(config)
       @config = config
     end
 
-    def invoke
-      unless no_check
-        raise Couchdbtools::Error::DatabaseDoesNotExist.new unless check
+    def initialize_from_hash(hash)
+      hash.each_pair do |method, param|
+        send("#{method}=", param)
       end
+    end
+
+    def invoke
+      raise Couchdbtools::Error::DatabaseDoesNotExist.new unless database_check
       @uri = "#{base_uri}#{@uri}"
       send(@method)
     end
@@ -58,7 +62,8 @@ module Couchdbtools
 
     private
 
-    def check
+    def database_check
+      return true unless check
       begin
         couchdb_running? && database_present?
       rescue RestClient::ResourceNotFound => exception
